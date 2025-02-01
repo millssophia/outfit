@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -229,15 +229,18 @@
       <p>clothes go here!</p>
     </div>
   </div>
-
-  <script>
-    const imageGallery = document.getElementById('imageGallery');
+<script>
+  const imageGallery = document.getElementById('imageGallery');
     const canvas = document.getElementById('canvas');
 
     // Buttons for Tops, Bottoms, and Other categories
     const showTopsButton = document.getElementById('showTopsButton');
     const showBottomsButton = document.getElementById('showBottomsButton');
     const showOtherButton = document.getElementById('showOtherButton');
+	
+    // Buttons for cloud save
+    const uploadCloudButton = document.getElementById('uploadCloudButton');
+     const uploadGoogleButton = document.getElementById('uploadGoogleButton');
 
     // Subcategory buttons
     const topsButtons = document.getElementById('topsButtons');
@@ -254,7 +257,7 @@
       other: ['jackets', 'shoes']
     };
 
-    // Function to display the images as thumbnails
+     // Function to display the images as thumbnails
     function displayThumbnails(folderNames) {
       imageGallery.innerHTML = ''; // Clear the gallery
 
@@ -284,6 +287,7 @@
         }
       });
     }
+
 
     function addImageToCanvas(imageSrc) {
       const imgContainer = createPhotoContainer(imageSrc);
@@ -418,13 +422,6 @@
       }
     });
 
-    // Event listener for subcategory buttons
-    topsButtons.addEventListener('click', (e) => {
-      if (e.target.dataset.folder) {
-        displayThumbnails([e.target.dataset.folder]);
-      }
-    });
-
     bottomsButtons.addEventListener('click', (e) => {
       if (e.target.dataset.folder) {
         displayThumbnails([e.target.dataset.folder]);
@@ -460,6 +457,23 @@
   const databaseSelect = document.createElement('select');
   databaseSelect.style.margin = "10px";
   document.querySelector('.container').appendChild(databaseSelect);
+    
+    const loadFileButton = document.createElement('button');
+    loadFileButton.textContent = "Load From File";
+    loadFileButton.style.margin = "10px";
+    document.querySelector('.container').appendChild(loadFileButton);
+
+    // Add an input file element (hidden) to handle file selection
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.style.display = 'none'; // hide the input visually
+    fileInput.accept = '.json'; // only accept json
+    document.querySelector('.container').appendChild(fileInput);
+
+    const googleButton = document.createElement('button');
+    googleButton.textContent = "Save to Google Drive";
+    googleButton.style.margin = "10px";
+    document.querySelector('.container').appendChild(googleButton);
 
   // Initialize the database in localStorage
   if (!localStorage.getItem('photoArrangementsDB')) {
@@ -479,22 +493,96 @@
   }
 
   updateDatabaseDropdown();
+    
+  // Helper function to trigger the file input
+   function triggerFileInput() {
+        fileInput.click();
+    }
+    
+  // Function to handle loading the outfit from json
+    function loadOutfitFromFile(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return alert("No file selected!");
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+               try {
+                   const savedOutfitData = JSON.parse(e.target.result);
+
+                    // Clear canvas
+                    canvas.innerHTML = '<p>clothes go here!</p>';
+
+                     if (savedOutfitData && savedOutfitData.arrangement) {
+                        savedOutfitData.arrangement.forEach(item => {
+                            const imgContainer = createPhotoContainer(item.src);
+                            imgContainer.style.left = item.left;
+                            imgContainer.style.top = item.top;
+                            canvas.appendChild(imgContainer);
+                        });
+                    } else {
+                        alert("Invalid outfit data in the selected file.");
+                    }
+                } catch (error) {
+                    alert("Error loading the file");
+                    console.error("Error loading outfit data:", error);
+                }
+
+            };
+        reader.readAsText(file); // Read the file as text
+        }
+
+    fileInput.addEventListener('change', loadOutfitFromFile);
+  
+   // Function to create the download
+     function downloadOutfit(data, name) {
+        const jsonString = JSON.stringify(data, null, 2);
+        const blob = new Blob([jsonString], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url); //cleanup
+    }
+    
+    //upload to cloud function
+    async function uploadOutfit(data, name) {
+        const API_ENDPOINT = 'YOUR_API_ENDPOINT'; // Replace with your actual API endpoint URL
+
+        try {
+            const response = await fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Add any additional headers (e.g., authorization tokens) if needed
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+              const error = await response.json();
+                throw new Error(`HTTP error! status: ${response.status} ${error.message}`);
+            }
+
+            const result = await response.json(); //if endpoint returns JSON
+
+            alert(`Outfit "${name}" uploaded successfully to cloud!`);
+            console.log('Upload successful:', result); // Optional: Log the response from server
+
+        } catch (error) {
+            alert(`Error uploading outfit: ${error.message}`);
+            console.error('Upload failed:', error);
+        }
+    }
 
 saveDatabaseButton.addEventListener('click', () => {
   const name = prompt("Enter a name for this arrangement:");
   if (!name) return alert("Arrangement name is required!");
 
-  // Retrieve the database from localStorage, or initialize it as an empty object if it's null
-  let database = JSON.parse(localStorage.getItem('photoArrangementsDB'));
-  if (!database) {
-    database = {}; // Initialize an empty object if database doesn't exist
-  }
-
-  // Check if the name already exists in the database
-  if (database[name]) {
-    const overwrite = confirm(`An arrangement named "${name}" already exists. Do you want to overwrite it?`);
-    if (!overwrite) return; // Exit if the user chooses not to overwrite
-  }
 
   // Collect additional metadata
   const tags = prompt("Enter tags or notes for this arrangement (optional):");
@@ -511,46 +599,253 @@ saveDatabaseButton.addEventListener('click', () => {
     };
   });
 
-  // Save the arrangement along with metadata (ensure it's stored as an array of objects)
-  database[name] = {
-    arrangement, // This is an array of photo objects
-    tags,        // Metadata such as tags or notes
-    timestamp,   // Timestamp when the arrangement was saved
+  const outfitData = {
+        arrangement: arrangement,
+        tags: tags,
+        timestamp: timestamp,
   };
+    
+  downloadOutfit(outfitData, name + '.json');
+    
 
-  // Save the updated database back to localStorage
-  console.log(arrangement);
-  localStorage.setItem('photoArrangementsDB', JSON.stringify(database));
+   // Store in localStorage
+    let database = JSON.parse(localStorage.getItem('photoArrangementsDB'));
+    if (!database) {
+        database = {};
+    }
+    if (database[name]) {
+      const overwrite = confirm(`An arrangement named "${name}" already exists. Do you want to overwrite it?`);
+        if (!overwrite) return; // Exit if the user chooses not to overwrite
+    }
+    database[name] = {
+      local:  outfitData,
+    };
+   localStorage.setItem('photoArrangementsDB', JSON.stringify(database));
   updateDatabaseDropdown();
+    
 
-  alert(`Arrangement "${name}" saved successfully!`);
+  alert(`Outfit "${name}" saved locally and as a file!`);
 });
 
+    // Upload to Cloud button action
+    uploadCloudButton.addEventListener('click', () => {
+      const name = prompt("Enter a name for this arrangement:");
+      if (!name) return alert("Arrangement name is required!");
 
+
+      // Collect additional metadata
+      const tags = prompt("Enter tags or notes for this arrangement (optional):");
+      const timestamp = new Date().toISOString();
+
+      // Collect photo data (ensure it's in array format)
+      const photos = Array.from(canvas.querySelectorAll('.draggable-container'));
+      const arrangement = photos.map(photo => {
+        const img = photo.querySelector('img');
+        return {
+          src: img.src,
+          left: photo.style.left,
+          top: photo.style.top,
+        };
+      });
+
+      const outfitData = {
+        arrangement: arrangement,
+          tags: tags,
+          timestamp: timestamp,
+      };
+
+
+    uploadOutfit(outfitData, name);
+      
+       // Store in localStorage
+    let database = JSON.parse(localStorage.getItem('photoArrangementsDB'));
+    if (!database) {
+        database = {};
+    }
+      if (database[name]) {
+          const overwrite = confirm(`An arrangement named "${name}" already exists. Do you want to overwrite it?`);
+        if (!overwrite) return; // Exit if the user chooses not to overwrite
+        }
+        database[name] = {
+          cloud:  outfitData
+        };
+      localStorage.setItem('photoArrangementsDB', JSON.stringify(database));
+        updateDatabaseDropdown();
+
+    });
+
+    // Google Drive Upload Function
+   async function uploadToGoogleDrive(data, name) {
+        const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID'; // Replace with your actual client ID
+        const API_KEY = 'YOUR_GOOGLE_API_KEY';
+        const FOLDER_ID = "YOUR_GOOGLE_DRIVE_FOLDER_ID";
+        const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
+        const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+
+        // Function to handle Google Sign-In
+         async function handleGoogleSignIn() {
+            return new Promise((resolve, reject) => {
+                gapi.load('client:auth2', async () => {
+                   await gapi.client.init({
+                      apiKey: API_KEY,
+                       clientId: CLIENT_ID,
+                       discoveryDocs: DISCOVERY_DOCS,
+                        scope: SCOPES
+                    });
+
+                    gapi.auth2.getAuthInstance().signIn().then(
+                        () => resolve(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token),
+                        (error) => reject(error)
+                    );
+                });
+            });
+        }
+        
+          const accessToken = await handleGoogleSignIn();
+          
+        try {
+                const jsonString = JSON.stringify(data, null, 2);
+                const blob = new Blob([jsonString], {type: 'application/json'});
+                const fileMetadata = {
+                    name: name + ".json",
+                    parents: [FOLDER_ID]
+                 };
+              
+                const form = new FormData();
+                 form.append('metadata', new Blob([JSON.stringify(fileMetadata)], { type: 'application/json' }));
+                form.append('file', blob);
+
+
+                const response = await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart", {
+                    method: 'POST',
+                    headers: new Headers({
+                      'Authorization': 'Bearer ' + accessToken,
+                  }),
+                  body: form,
+                });
+                
+               
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(`Google Drive upload failed: ${response.status} ${error.error.message}`);
+                }
+
+              
+              const result = await response.json();
+             alert('Outfit uploaded to Google Drive!');
+            console.log("success", result);
+        
+          // Store in localStorage
+              let database = JSON.parse(localStorage.getItem('photoArrangementsDB'));
+                if (!database) {
+                  database = {};
+                }
+              if (database[name]) {
+                  const overwrite = confirm(`An arrangement named "${name}" already exists. Do you want to overwrite it?`);
+                  if (!overwrite) return; // Exit if the user chooses not to overwrite
+              }
+              database[name] = {
+              google: data,
+                  fileID: result.id,
+              };
+              localStorage.setItem('photoArrangementsDB', JSON.stringify(database));
+          updateDatabaseDropdown();
+        } catch (error) {
+            alert('Error uploading to Google Drive: ' + error.message);
+            console.error('Google Drive upload error:', error);
+        }
+    }
+        
+        googleButton.addEventListener('click', async () => {
+           const name = prompt("Enter a name for this arrangement:");
+            if (!name) return alert("Arrangement name is required!");
+
+
+            // Collect additional metadata
+            const tags = prompt("Enter tags or notes for this arrangement (optional):");
+            const timestamp = new Date().toISOString();
+
+            // Collect photo data (ensure it's in array format)
+            const photos = Array.from(canvas.querySelectorAll('.draggable-container'));
+            const arrangement = photos.map(photo => {
+                const img = photo.querySelector('img');
+                return {
+                    src: img.src,
+                    left: photo.style.left,
+                    top: photo.style.top,
+                };
+            });
+             const outfitData = {
+            arrangement: arrangement,
+                tags: tags,
+                timestamp: timestamp,
+        };
+         await uploadToGoogleDrive(outfitData, name);
+        });
 
 
   // Load arrangement from database
 loadDatabaseButton.addEventListener('click', () => {
-  const selectedArrangement = databaseSelect.value;
-  if (!selectedArrangement) return alert("Please select an arrangement to load!");
+    const selectedArrangement = databaseSelect.value;
+    if (!selectedArrangement) return alert("Please select an arrangement to load!");
 
-  const database = JSON.parse(localStorage.getItem('photoArrangementsDB'));
-  const entry = database[selectedArrangement];
+    const database = JSON.parse(localStorage.getItem('photoArrangementsDB'));
+    const entry = database[selectedArrangement];
+    
+   // Load local storage data
+    if(entry && entry.local){
+          // Display metadata (optional)
+          console.log(`Loading local arrangement: ${selectedArrangement}`);
+          console.log(`Tags/Notes: ${entry.local.tags || "No tags"}`);
+          console.log(`Saved on: ${entry.local.timestamp || "Unknown date"}`);
 
-  // Display metadata (optional)
-  console.log(`Loading arrangement: ${selectedArrangement}`);
-  console.log(`Tags/Notes: ${entry.tags || "No tags"}`);
-  console.log(`Saved on: ${entry.timestamp || "Unknown date"}`);
+          // Clear the canvas and load the arrangement
+          canvas.innerHTML = '<p>clothes go here!</p>';
+          entry.local.arrangement.forEach(item => {
+            const imgContainer = createPhotoContainer(item.src);
+              imgContainer.style.left = item.left;
+              imgContainer.style.top = item.top;
+              canvas.appendChild(imgContainer);
+        });
+      } else if (entry && entry.cloud) {
+         // Display metadata (optional)
+          console.log(`Loading cloud arrangement: ${selectedArrangement}`);
+          console.log(`Tags/Notes: ${entry.cloud.tags || "No tags"}`);
+          console.log(`Saved on: ${entry.cloud.timestamp || "Unknown date"}`);
 
-  // Clear the canvas and load the arrangement
-  canvas.innerHTML = '<p>clothes go here!</p>';
-  entry.arrangement.forEach(item => {
-    const imgContainer = createPhotoContainer(item.src);
-    imgContainer.style.left = item.left;
-    imgContainer.style.top = item.top;
-    canvas.appendChild(imgContainer);
-  });
+        // Clear the canvas and load the arrangement
+          canvas.innerHTML = '<p>clothes go here!</p>';
+          entry.cloud.arrangement.forEach(item => {
+            const imgContainer = createPhotoContainer(item.src);
+            imgContainer.style.left = item.left;
+            imgContainer.style.top = item.top;
+            canvas.appendChild(imgContainer);
+          });
+        } else if (entry && entry.google) {
+            // Display metadata (optional)
+            console.log(`Loading Google Drive arrangement: ${selectedArrangement}`);
+            console.log(`Tags/Notes: ${entry.google.tags || "No tags"}`);
+            console.log(`Saved on: ${entry.google.timestamp || "Unknown date"}`);
+
+            // Clear the canvas and load the arrangement
+            canvas.innerHTML = '<p>clothes go here!</p>';
+           entry.google.arrangement.forEach(item => {
+                const imgContainer = createPhotoContainer(item.src);
+               imgContainer.style.left = item.left;
+               imgContainer.style.top = item.top;
+               canvas.appendChild(imgContainer);
+            });
+        } else {
+         alert("Could not find a save by that name!")
+       }
+
 });
+      
+    // Handle loading outfit from file
+    loadFileButton.addEventListener('click', triggerFileInput);
   </script>
+
+
 </body>
 </html>
