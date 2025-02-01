@@ -7,36 +7,33 @@
   <style>
     body {
       font-family: Georgia, serif;
-      font-size: 14px; /* Slightly smaller base font */
+      font-size: 16px;
       letter-spacing: 1.2px;
       background-color: #362200;
       color: #452c00;
       font-weight: 700;
       text-transform: uppercase;
-      margin: 0; /* Remove default body margin */
-      padding: 0; /* Remove default body padding */
     }
 
     .container {
-	  margin: 10px auto; /* Add a little margin, also on the sides */
+	  margin: 0 auto;
       text-align: center;
       background-color: #F8E9D0;
-      padding: 20px; /* Smaller padding */
-      border-radius: 20px; /* Less border radius */
-      width: 95%; /* Slightly smaller width */
-      max-width: 600px; /* Add a max width */
+      padding: 30px;
+      border-radius: 30px;
+      width: 90%;
+      
     }
 
     h1 {
-      margin-bottom: 15px; /* Slightly smaller margin */
+      margin-bottom: 20px;
       color: #362200;
-      font-size: 1.5em; /* Relative size for better scaling */
     }
     
     
     select {
       font-family: Impact, serif;
-      font-size: 8px;
+      font-size: 10px;
       color: #362200;
       background-color: #F8E9D0;
       text-transform: none;
@@ -62,14 +59,14 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      margin-bottom: 15px; /* Smaller margin */
+      margin-bottom: 20px;
     }
 
     .image-gallery img {
-      width: 70px; /* Smaller image size */
-      height: 70px; /* Smaller image size */
+      width: 100px;
+      height: 100px;
       object-fit: cover;
-      margin: 5px; /* Smaller margin */
+      margin: 10px;
       cursor: pointer;
       border-radius: 5px;
       transition: transform 0.3s ease;
@@ -80,10 +77,10 @@
     }
 
     #canvas {
-	  margin: 10px auto; /* Keep margin, but make it smaller */
+	  margin: 0 auto;
       position: relative;
-      width: 90%; /* Smaller canvas */
-      height: 300px; /* Smaller height */
+      width: 75%;
+      height: 400px;
       border: 2px dashed #FF9999;
       border-radius: 10px;
       overflow: hidden;
@@ -95,13 +92,13 @@
 
     #canvas p {
       color: #FF9999;
-      font-size: 1em; /* Slightly smaller text */
+      font-size: 1.2em;
     }
 
     .draggable {
       position: absolute;
-      max-width: 100px; /* Smaller draggable image */
-      max-height: 100px; /* Smaller draggable image */
+      max-width: 150px;
+      max-height: 150px;
       cursor: grab;
       user-select: none;
     }
@@ -124,10 +121,10 @@
       cursor: pointer;
       color: #ffffff;
       font-family: Impact;
-      font-size: 8px; /* Smaller button text */
-      padding: 4px 2px; /* Smaller button padding */
+      font-size: 10px;
+      padding: 6px 3px;
       text-decoration: none;
-      margin: 5px; /* Smaller button margin */
+      margin: 10px
     }
     
     button:hover {
@@ -135,7 +132,7 @@
     }
     
     button:active {
-    padding: 3px 1px; /* Smaller active state padding */
+    padding: 4px 2px;
     }
 
     #showTopsButton, #showBottomsButton, #showOtherButton {
@@ -144,16 +141,16 @@
       text-transform: capitalize;
       color: #ffffff;
       font-family: Georgia;
-      font-size: 15px; /* Smaller text size */
+      font-size: 17px;
       font-weight: bold;
-      padding: 8px 20px; /* Smaller padding */
+      padding: 10px 37px;
       text-decoration: none;
-      text-shadow: 2px 2px 0px #528ecc; /* Slightly smaller text shadow */
-      margin: 5px; /* Smaller margin */
-      margin-bottom: 5px;
+      text-shadow: 3px 3px 0px #528ecc;
+      margin: 10px;
+      margin-bottom: 10px;
       background-color: #FFCCCB;
-      text-shadow: 2px 2px 0px #FF9999; /* Slightly smaller text shadow */
-      box-shadow: 3px 3px 0px 0px #FF9999; /* Slightly smaller box shadow */
+      text-shadow: 3px 3px 0px #FF9999;
+      box-shadow: 4px 4px 0px 0px #FF9999;
       border: 1px solid #FF9999;
       border-radius: 0px;
     }
@@ -164,57 +161,30 @@
     
     #showTopsButton:active, #showBottomsButton:active, #showOtherButton:active {
 	  background-color: #FFCCCB;
-	  box-shadow: 1px 1px #FF9999;
-	  transform: translateY(1px);
-	  transform: translateX(1px);
+	  box-shadow: 2px 2px #FF9999;
+	  transform: translateY(2px);
+	  transform: translateX(2px);
     }
-
-	/* Responsive adjustments */
-	@media (max-width: 600px) {
-	  .container {
-	    padding: 15px;
-		width: 98%; /* Take a bit more of the screen on small devices */
-	  }
-	
-	  h1 {
-	    font-size: 1.3em;
-	  }
-	
-	  .image-gallery img {
-	    width: 50px; /* Even smaller on small screens */
-	    height: 50px; /* Even smaller on small screens */
-	  }
-	
-	  #canvas {
-	    height: 250px; /* Even smaller canvas on small screens */
-		width: 95%; /* Make sure canvas takes up most of screen width */
-	  }
-		
-	  #showTopsButton, #showBottomsButton, #showOtherButton {
-	    font-size: 13px; /* Even smaller text */
-		padding: 6px 15px; /* Even less padding */
-	  }
-	  
-	}
+    
   </style>
 </head>
 <body>
   <div class="container">
     <a href="index.html" style="
       display: inline-block;
-      margin: 5px;
+      margin: 15px;
       text-decoration: none;
       color: #362200;
-      font-size: 0.9rem;
+      font-size: 1rem;
       transition: background-color 0.3s ease;">
       Back to Home
     </a>
     <a href="view-arrangements.html" style="
       display: inline-block;
-      margin: 5px;
+      margin: 15px;
       text-decoration: none;
       color: #362200;
-      font-size: 0.9rem;
+      font-size: 1rem;
       transition: background-color 0.3s ease;">
       view saved outfits
     </a>
@@ -315,7 +285,6 @@
       });
     }
 
-    // Function to add the selected image to the canvas
     function addImageToCanvas(imageSrc) {
       const imgContainer = createPhotoContainer(imageSrc);
       canvas.appendChild(imgContainer);
@@ -328,8 +297,8 @@
 
       // Set random initial position for the container
       container.style.position = 'absolute';
-      container.style.left = `${Math.random() * (canvas.offsetWidth - 150)}px`;
-      container.style.top = `${Math.random() * (canvas.offsetHeight - 150)}px`;
+      container.style.left = `${Math.random() * (canvas.offsetWidth - 100)}px`;
+      container.style.top = `${Math.random() * (canvas.offsetHeight - 100)}px`;
 
       // Create the image
       const img = document.createElement('img');
@@ -340,8 +309,9 @@
       img.setAttribute('draggable', 'false');
 
       // Add drag-and-drop functionality
-        container.addEventListener('mousedown', onDragStart);
-        container.addEventListener('touchstart', onDragStart, { passive: false });
+      container.addEventListener('mousedown', onDragStart);
+      //prevent scroll on touch
+      container.addEventListener('touchstart', onDragStart);
 
       // Double-click to delete photo
       container.addEventListener('dblclick', () => {
@@ -358,55 +328,65 @@
     let draggedElement = null;
 
     function onDragStart(event) {
-        const container = event.currentTarget;
-        draggedElement = container;
+       event.preventDefault(); //prevent scroll while dragging on touch devices
+      const container = event.currentTarget; // Target the container, not the image
+      draggedElement = container;
 
-
-        let startX, startY;
-         if (event.type === 'touchstart') {
+      // Get the offset between the mouse and the container
+        let offsetX, offsetY;
+        if (event.type === 'touchstart') {
+            const touch = event.touches[0];
             const rect = container.getBoundingClientRect();
-            startX = event.touches[0].clientX - rect.left;
-            startY = event.touches[0].clientY - rect.top;
-
+           offsetX = touch.clientX - rect.left;
+            offsetY = touch.clientY - rect.top;
         } else {
-        const rect = container.getBoundingClientRect();
-        startX = event.clientX - rect.left;
-        startY = event.clientY - rect.top;
+            const rect = container.getBoundingClientRect();
+            offsetX = event.clientX - rect.left;
+            offsetY = event.clientY - rect.top;
         }
+    
 
-        function onMove(e) {
-            const canvasRect = canvas.getBoundingClientRect();
-            let x, y;
-             if (e.type === 'touchmove') {
-               x = e.touches[0].clientX - canvasRect.left - startX;
-               y = e.touches[0].clientY - canvasRect.top - startY;
-            } else {
-                 x = e.clientX - canvasRect.left - startX;
-                 y = e.clientY - canvasRect.top - startY;
-             }
-         x = Math.max(0, Math.min(x, canvas.offsetWidth - container.offsetWidth));
+
+      // Move the element as the mouse moves
+      function onMouseMove(e) {
+        e.preventDefault(); // prevent scroll while dragging
+        const canvasRect = canvas.getBoundingClientRect();
+          let x, y;
+          if (e.type === 'touchmove') {
+            const touch = e.touches[0];
+             x = touch.clientX - canvasRect.left - offsetX;
+            y = touch.clientY - canvasRect.top - offsetY;
+          } else {
+               x = e.clientX - canvasRect.left - offsetX;
+               y = e.clientY - canvasRect.top - offsetY;
+          }
+       
+
+        // Constrain the element within the canvas
+        x = Math.max(0, Math.min(x, canvas.offsetWidth - container.offsetWidth));
         y = Math.max(0, Math.min(y, canvas.offsetHeight - container.offsetHeight));
 
-            container.style.left = `${x}px`;
-            container.style.top = `${y}px`;
-        }
+        container.style.left = `${x}px`;
+        container.style.top = `${y}px`;
+      }
 
-         function onEnd(e) {
-            document.removeEventListener('mousemove', onMove);
-             document.removeEventListener('mouseup', onEnd);
-            document.removeEventListener('touchmove', onMove);
-            document.removeEventListener('touchend', onEnd);
-            document.removeEventListener('touchcancel', onEnd);
-         }
-
+      // Clean up when the mouse is released
+      function onMouseUp() {
+           document.removeEventListener('mousemove', onMouseMove);
+           document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('touchmove', onMouseMove);
+           document.removeEventListener('touchend', onMouseUp);
+      }
+        
         if (event.type === 'touchstart') {
-            document.addEventListener('touchmove', onMove, { passive: false });
-             document.addEventListener('touchend', onEnd);
-             document.addEventListener('touchcancel', onEnd);
+            document.addEventListener('touchmove', onMouseMove, { passive: false });
+            document.addEventListener('touchend', onMouseUp);
+
         } else {
-        document.addEventListener('mousemove', onMove);
-             document.addEventListener('mouseup', onEnd);
+              document.addEventListener('mousemove', onMouseMove);
+             document.addEventListener('mouseup', onMouseUp);
         }
+
     }
 
     // Event listeners for category buttons
@@ -429,6 +409,13 @@
       topsButtons.classList.add('hidden'); // Hide tops buttons if open
       bottomsButtons.classList.add('hidden'); // Hide bottoms buttons if open
       imageGallery.innerHTML = ''; // Clear gallery when switching
+    });
+
+    // Event listener for subcategory buttons
+    topsButtons.addEventListener('click', (e) => {
+      if (e.target.dataset.folder) {
+        displayThumbnails([e.target.dataset.folder]);
+      }
     });
 
     // Event listener for subcategory buttons
@@ -474,88 +461,96 @@
   databaseSelect.style.margin = "10px";
   document.querySelector('.container').appendChild(databaseSelect);
 
+  // Initialize the database in localStorage
+  if (!localStorage.getItem('photoArrangementsDB')) {
+    localStorage.setItem('photoArrangementsDB', JSON.stringify({}));
+  }
 
-        saveDatabaseButton.addEventListener('click', async () => {
-            const name = prompt("Enter a name for this arrangement:");
-                if (!name) return alert("Arrangement name is required!");
-        
-              // Collect additional metadata
-                 const tags = prompt("Enter tags or notes for this arrangement (optional):");
-                const timestamp = new Date().toISOString();
-        
-                // Collect photo data (ensure it's in array format)
-               const photos = Array.from(canvas.querySelectorAll('.draggable-container'));
-                const arrangement = photos.map(photo => {
-                    const img = photo.querySelector('img');
-                    return {
-                    src: img.src,
-                    left: photo.style.left,
-                   top: photo.style.top,
-                  };
-               });
-        
-            try {
-                  await db.collection('outfits').add({ name, arrangement, tags, timestamp });
-                   updateDatabaseDropdown();
-                   alert(`Arrangement "${name}" saved successfully!`);
-                 } catch (error) {
-                    console.error('Error saving outfit:', error);
-                    alert('Failed to save outfit.');
-                }
-            });
+  // Populate the dropdown with saved arrangements
+  function updateDatabaseDropdown() {
+    const database = JSON.parse(localStorage.getItem('photoArrangementsDB'));
+    databaseSelect.innerHTML = '<option value="">pick outfit</option>';
+    Object.keys(database).forEach((key) => {
+      const option = document.createElement('option');
+      option.value = key;
+      option.textContent = key;
+      databaseSelect.appendChild(option);
+    });
+  }
 
-        // Load arrangement from database
-        loadDatabaseButton.addEventListener('click', async () => {
-            const selectedArrangement = databaseSelect.value;
-            if (!selectedArrangement) return alert("Please select an arrangement to load!");
-        
-          try {
-              const querySnapshot = await db.collection('outfits').get();
-              const outfits = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                const database = outfits.reduce((acc, curr) => {
-                   acc[curr.id] = curr;
-                   return acc;
-               }, {});
-            const entry = database[selectedArrangement];
-            // Display metadata (optional)
-             console.log(`Loading arrangement: ${selectedArrangement}`);
-             console.log(`Tags/Notes: ${entry.tags || "No tags"}`);
-              console.log(`Saved on: ${entry.timestamp || "Unknown date"}`);
-        
-            // Clear the canvas and load the arrangement
-              canvas.innerHTML = '<p>clothes go here!</p>';
-               entry.arrangement.forEach(item => {
-                   const imgContainer = createPhotoContainer(item.src);
-                   imgContainer.style.left = item.left;
-                  imgContainer.style.top = item.top;
-                  canvas.appendChild(imgContainer);
-               });
-            } catch (error) {
-                 console.error("Error fetching saved outfits:", error);
-          }
-         });
-        
-          // Populate the dropdown with saved arrangements
-          async function updateDatabaseDropdown() {
-          try {
-               const querySnapshot = await db.collection('outfits').get();
-                 const outfits = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                    const database = outfits.reduce((acc, curr) => {
-                        acc[curr.id] = curr;
-                         return acc;
-                        }, {});
-                 databaseSelect.innerHTML = '<option value="">pick outfit</option>';
-                 Object.keys(database).forEach((key) => {
-                     const option = document.createElement('option');
-                    option.value = key;
-                   option.textContent = database[key].name;
-                     databaseSelect.appendChild(option);
-                   });
-           } catch (error) {
-                 console.error("Error fetching saved outfits for dropdown:", error);
-          }
-         }
-         updateDatabaseDropdown();
+  updateDatabaseDropdown();
+
+saveDatabaseButton.addEventListener('click', () => {
+  const name = prompt("Enter a name for this arrangement:");
+  if (!name) return alert("Arrangement name is required!");
+
+  // Retrieve the database from localStorage, or initialize it as an empty object if it's null
+  let database = JSON.parse(localStorage.getItem('photoArrangementsDB'));
+  if (!database) {
+    database = {}; // Initialize an empty object if database doesn't exist
+  }
+
+  // Check if the name already exists in the database
+  if (database[name]) {
+    const overwrite = confirm(`An arrangement named "${name}" already exists. Do you want to overwrite it?`);
+    if (!overwrite) return; // Exit if the user chooses not to overwrite
+  }
+
+  // Collect additional metadata
+  const tags = prompt("Enter tags or notes for this arrangement (optional):");
+  const timestamp = new Date().toISOString();
+
+  // Collect photo data (ensure it's in array format)
+  const photos = Array.from(canvas.querySelectorAll('.draggable-container'));
+  const arrangement = photos.map(photo => {
+    const img = photo.querySelector('img');
+    return {
+      src: img.src,
+      left: photo.style.left,
+      top: photo.style.top,
+    };
+  });
+
+  // Save the arrangement along with metadata (ensure it's stored as an array of objects)
+  database[name] = {
+    arrangement, // This is an array of photo objects
+    tags,        // Metadata such as tags or notes
+    timestamp,   // Timestamp when the arrangement was saved
+  };
+
+  // Save the updated database back to localStorage
+  console.log(arrangement);
+  localStorage.setItem('photoArrangementsDB', JSON.stringify(database));
+  updateDatabaseDropdown();
+
+  alert(`Arrangement "${name}" saved successfully!`);
+});
+
+
+
+
+  // Load arrangement from database
+loadDatabaseButton.addEventListener('click', () => {
+  const selectedArrangement = databaseSelect.value;
+  if (!selectedArrangement) return alert("Please select an arrangement to load!");
+
+  const database = JSON.parse(localStorage.getItem('photoArrangementsDB'));
+  const entry = database[selectedArrangement];
+
+  // Display metadata (optional)
+  console.log(`Loading arrangement: ${selectedArrangement}`);
+  console.log(`Tags/Notes: ${entry.tags || "No tags"}`);
+  console.log(`Saved on: ${entry.timestamp || "Unknown date"}`);
+
+  // Clear the canvas and load the arrangement
+  canvas.innerHTML = '<p>clothes go here!</p>';
+  entry.arrangement.forEach(item => {
+    const imgContainer = createPhotoContainer(item.src);
+    imgContainer.style.left = item.left;
+    imgContainer.style.top = item.top;
+    canvas.appendChild(imgContainer);
+  });
+});
   </script>
 </body>
 </html>
