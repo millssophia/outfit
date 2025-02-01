@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -229,8 +229,7 @@
       <p>clothes go here!</p>
     </div>
   </div>
-
-  <script>
+ <script>
     const imageGallery = document.getElementById('imageGallery');
     const canvas = document.getElementById('canvas');
 
@@ -254,7 +253,7 @@
       other: ['jackets', 'shoes']
     };
 
-    // Function to display the images as thumbnails
+     // Function to display the images as thumbnails
     function displayThumbnails(folderNames) {
       imageGallery.innerHTML = ''; // Clear the gallery
 
@@ -285,7 +284,6 @@
       });
     }
 
-    // Function to add the selected image to the canvas
     function addImageToCanvas(imageSrc) {
       const imgContainer = createPhotoContainer(imageSrc);
       canvas.appendChild(imgContainer);
@@ -298,8 +296,8 @@
 
       // Set random initial position for the container
       container.style.position = 'absolute';
-      container.style.left = `${Math.random() * (canvas.offsetWidth - 150)}px`;
-      container.style.top = `${Math.random() * (canvas.offsetHeight - 150)}px`;
+      container.style.left = `${Math.random() * (canvas.offsetWidth - 100)}px`;
+      container.style.top = `${Math.random() * (canvas.offsetHeight - 100)}px`;
 
       // Create the image
       const img = document.createElement('img');
@@ -311,6 +309,8 @@
 
       // Add drag-and-drop functionality
       container.addEventListener('mousedown', onDragStart);
+      //prevent scroll on touch
+      container.addEventListener('touchstart', onDragStart);
 
       // Double-click to delete photo
       container.addEventListener('dblclick', () => {
@@ -327,20 +327,39 @@
     let draggedElement = null;
 
     function onDragStart(event) {
+       event.preventDefault(); //prevent scroll while dragging on touch devices
       const container = event.currentTarget; // Target the container, not the image
       draggedElement = container;
 
       // Get the offset between the mouse and the container
-      const rect = container.getBoundingClientRect();
-      const offsetX = event.clientX - rect.left;
-      const offsetY = event.clientY - rect.top;
+        let offsetX, offsetY;
+        if (event.type === 'touchstart') {
+            const touch = event.touches[0];
+            const rect = container.getBoundingClientRect();
+           offsetX = touch.clientX - rect.left;
+            offsetY = touch.clientY - rect.top;
+        } else {
+            const rect = container.getBoundingClientRect();
+            offsetX = event.clientX - rect.left;
+            offsetY = event.clientY - rect.top;
+        }
+    
+
 
       // Move the element as the mouse moves
       function onMouseMove(e) {
+        e.preventDefault(); // prevent scroll while dragging
         const canvasRect = canvas.getBoundingClientRect();
-
-        let x = e.clientX - canvasRect.left - offsetX;
-        let y = e.clientY - canvasRect.top - offsetY;
+          let x, y;
+          if (e.type === 'touchmove') {
+            const touch = e.touches[0];
+             x = touch.clientX - canvasRect.left - offsetX;
+            y = touch.clientY - canvasRect.top - offsetY;
+          } else {
+               x = e.clientX - canvasRect.left - offsetX;
+               y = e.clientY - canvasRect.top - offsetY;
+          }
+       
 
         // Constrain the element within the canvas
         x = Math.max(0, Math.min(x, canvas.offsetWidth - container.offsetWidth));
@@ -352,12 +371,21 @@
 
       // Clean up when the mouse is released
       function onMouseUp() {
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
+           document.removeEventListener('mousemove', onMouseMove);
+           document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('touchmove', onMouseMove);
+           document.removeEventListener('touchend', onMouseUp);
       }
+        
+        if (event.type === 'touchstart') {
+            document.addEventListener('touchmove', onMouseMove, { passive: false });
+            document.addEventListener('touchend', onMouseUp);
 
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
+        } else {
+              document.addEventListener('mousemove', onMouseMove);
+             document.addEventListener('mouseup', onMouseUp);
+        }
+
     }
 
     // Event listeners for category buttons
@@ -516,5 +544,6 @@ loadDatabaseButton.addEventListener('click', () => {
   });
 });
   </script>
+</script>
 </body>
 </html>
