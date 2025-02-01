@@ -242,99 +242,99 @@ function saveArrangementToJSONBin(name, arrangement) {
 }
 
 
-// Object.keys(database).forEach(key => {
-//   const arrangement = database[key];
-// 
-//   // Check if 'arrangement.arrangement' is an array before using .forEach
-//   if (Array.isArray(arrangement.arrangement)) {
-//     const arrangementDiv = document.createElement('div');
-//     arrangementDiv.classList.add('arrangement');
-// 
-//     const title = document.createElement('h3');
-//     title.textContent = key;
-//     arrangementDiv.appendChild(title);
-// 
-//     const deleteButton = document.createElement('button');
-//     deleteButton.textContent = 'Delete';
-//     deleteButton.classList.add('delete-button');
-//     deleteButton.addEventListener('click', () => deleteArrangement(key));
-//     arrangementDiv.appendChild(deleteButton);
-// 
-//     // Create canvas for the arrangement
-//     const canvas = document.createElement('div');
-//     canvas.classList.add('canvas');
-// 
-//     // Loop through the array of photos
-//     arrangement.arrangement.forEach(photo => {
-//       const img = document.createElement('img');
-//       img.src = photo.src;
-//       img.style.left = photo.left;
-//       img.style.top = photo.top;
-//       img.classList.add('draggable');
-//       canvas.appendChild(img);
-//     });
-// 
-//     arrangementDiv.appendChild(canvas);
-//     arrangementList.appendChild(arrangementDiv);
-//   } else {
-//     console.error(`Arrangement for "${key}" is not an array:`, arrangement);
-//   }
-// });
-// 
-// if (Object.keys(database).length === 0) {
-//   arrangementList.innerHTML = '<p>No arrangements saved!</p>';
-// }
-// 
-// function deleteArrangement(name) {
-//   // Retrieve the database from localStorage
-//   const database = JSON.parse(localStorage.getItem('photoArrangementsDB')) || {};
-// 
-//   // Delete the arrangement by name
-//   delete database[name];
-// 
-//   // Save the updated database back to localStorage
-//   localStorage.setItem('photoArrangementsDB', JSON.stringify(database));
-// 
-//   // Reload the page to update the displayed arrangements
-//   location.reload();
-//   }
-// const JSONBIN_API_KEY = "$2a$10$4IjfK0Y5ynpvKoctDkiCuuoFy236u9kzNg.bMlMoXxEPk.YUtddrq";
-// const BIN_ID = localStorage.getItem("jsonBinId"); // Retrieve stored Bin ID
-// 
-// const JSONBIN_ENDPOINT = BIN_ID 
-//     ? `https://api.jsonbin.io/v3/b/679e2093acd3cb34a8d68701` // Update existing bin
-//     : "https://api.jsonbin.io/v3/b"; // Create new bin
-// 
-// function saveToJSONBin() {
-//     const database = JSON.parse(localStorage.getItem('photoArrangementsDB')) || {};
-// 
-//     fetch(JSONBIN_ENDPOINT, {
-//         method: BIN_ID ? "PUT" : "POST", // Use PUT to update, POST to create
-//         headers: {
-//             "Content-Type": "application/json",
-//             "X-Master-Key": "$2a$10$4IjfK0Y5ynpvKoctDkiCuuoFy236u9kzNg.bMlMoXxEPk.YUtddrq"
-//         },
-//         body: JSON.stringify(database)
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         console.log("Data saved to JSONBin:", data);
-// 
-//         if (!BIN_ID) {
-//             localStorage.setItem("jsonBinId", data.metadata.id); // Store Bin ID
-//         }
-// 
-//         alert("Successfully saved to JSONBin!");
-//     })
-//     .catch(error => {
-//         console.error("Error saving to JSONBin:", error);
-//         alert("Failed to save. Check console for errors.");
-//     });
-// }
-// 
-// window.onload = function() {
-//     document.body.insertAdjacentHTML('beforeend', '<button onclick="saveToJSONBin()" style="display: block; margin: 20px auto; padding: 10px 20px; font-size: 16px;">Save to JSONBin</button>');
-// };
+Object.keys(database).forEach(key => {
+  const arrangement = database[key];
+
+  // Check if 'arrangement.arrangement' is an array before using .forEach
+  if (Array.isArray(arrangement.arrangement)) {
+    const arrangementDiv = document.createElement('div');
+    arrangementDiv.classList.add('arrangement');
+
+    const title = document.createElement('h3');
+    title.textContent = key;
+    arrangementDiv.appendChild(title);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('delete-button');
+    deleteButton.addEventListener('click', () => deleteArrangement(key));
+    arrangementDiv.appendChild(deleteButton);
+
+    // Create canvas for the arrangement
+    const canvas = document.createElement('div');
+    canvas.classList.add('canvas');
+
+    // Loop through the array of photos
+    arrangement.arrangement.forEach(photo => {
+      const img = document.createElement('img');
+      img.src = photo.src;
+      img.style.left = photo.left;
+      img.style.top = photo.top;
+      img.classList.add('draggable');
+      canvas.appendChild(img);
+    });
+
+    arrangementDiv.appendChild(canvas);
+    arrangementList.appendChild(arrangementDiv);
+  } else {
+    console.error(`Arrangement for "${key}" is not an array:`, arrangement);
+  }
+});
+
+if (Object.keys(database).length === 0) {
+  arrangementList.innerHTML = '<p>No arrangements saved!</p>';
+}
+
+function deleteArrangement(name) {
+  // Retrieve the database from localStorage
+  const database = JSON.parse(localStorage.getItem('photoArrangementsDB')) || {};
+
+  // Delete the arrangement by name
+  delete database[name];
+
+  // Save the updated database back to localStorage
+  localStorage.setItem('photoArrangementsDB', JSON.stringify(database));
+
+  // Reload the page to update the displayed arrangements
+  location.reload();
+  }
+const JSONBIN_API_KEY = "$2a$10$4IjfK0Y5ynpvKoctDkiCuuoFy236u9kzNg.bMlMoXxEPk.YUtddrq";
+const BIN_ID = localStorage.getItem("jsonBinId"); // Retrieve stored Bin ID
+
+const JSONBIN_ENDPOINT = BIN_ID 
+    ? `https://api.jsonbin.io/v3/b/679e2093acd3cb34a8d68701` // Update existing bin
+    : "https://api.jsonbin.io/v3/b"; // Create new bin
+
+function saveToJSONBin() {
+    const database = JSON.parse(localStorage.getItem('photoArrangementsDB')) || {};
+
+    fetch(JSONBIN_ENDPOINT, {
+        method: BIN_ID ? "PUT" : "POST", // Use PUT to update, POST to create
+        headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": "$2a$10$4IjfK0Y5ynpvKoctDkiCuuoFy236u9kzNg.bMlMoXxEPk.YUtddrq"
+        },
+        body: JSON.stringify(database)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Data saved to JSONBin:", data);
+
+        if (!BIN_ID) {
+            localStorage.setItem("jsonBinId", data.metadata.id); // Store Bin ID
+        }
+
+        alert("Successfully saved to JSONBin!");
+    })
+    .catch(error => {
+        console.error("Error saving to JSONBin:", error);
+        alert("Failed to save. Check console for errors.");
+    });
+}
+
+window.onload = function() {
+    document.body.insertAdjacentHTML('beforeend', '<button onclick="saveToJSONBin()" style="display: block; margin: 20px auto; padding: 10px 20px; font-size: 16px;">Save to JSONBin</button>');
+};
 
   </script>
 </body>
