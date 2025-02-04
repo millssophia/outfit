@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outfit Log</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      font-size: 16px;
+      letter-spacing: 1.2px;
+      background-color: #362200;
+      color: #452c00;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .container {
+      margin: 0 auto;
+      text-align: center;
+      background-color: #362200;
+      color: #452c00;
+      padding: 30px;
+      border-radius: 30px;
+      width: 90%;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #FFCCCB;
+    }
+
+    .image-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .image-gallery img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: transform 0.3s ease;
+    }
+
+    .image-gallery img:hover {
+      transform: scale(1.1);
+    }
+
+    .outfit-log {
+      margin-top: 50px;
+      margin-bottom: 100px;
+      background-color: #FFCCCB;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: left;
+      max-height: 300px;
+      overflow-y: auto;
+      font-size: 14px;
+      font-family: Georgia, sans-serif;
+    }
+
+    .outfit-log ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .outfit-log li {
+      margin: 5px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .outfit-log img {
+      margin-right: 10px;
+    }
+
+    button {
+      background-color: #4f3100;
+      text-transform: uppercase;
+      border-radius: 5px;
+      border: 1px solid #362200;
+      display: inline-block;
+      cursor: pointer;
+      color: #ffffff;
+      font-family: Impact;
+      font-size: 10px;
+      padding: 6px 3px;
+      text-decoration: none;
+      margin: 10px
+    }
+    
+    button:hover {
+    background-color: #7e4400;
+    }
+    
+
+	a:hover {
+	  transform: scale(1.05); /* Add a slight zoom effect */
+	}
+	
+	a:active {
+	  transform: scale(0.95); /* Add a "pressed" effect */
+	}
+    #showTopsButton, #showBottomsButton, #showOtherButton {
+      display: inline-block;
+      cursor: pointer;
+      text-transform: capitalize;
+      color: #ffffff;
+      font-family: Georgia;
+      font-size: 17px;
+      font-weight: bold;
+      padding: 10px 37px;
+      text-decoration: none;
+      text-shadow: 3px 3px 0px #528ecc;
+      margin: 10px;
+      margin-bottom: 10px;
+      background-color: #FFCCCB;
+      text-shadow: 3px 3px 0px #FF9999;
+      box-shadow: 4px 4px 0px 0px #FF9999;
+      border: 1px solid #FF9999;
+      border-radius: 0px;
+    }
+    
+    #showTopsButton:hover, #showBottomsButton:hover, #showOtherButton:hover {
+    	border: none;
+    }
+    
+    #showTopsButton:active, #showBottomsButton:active, #showOtherButton:active {
+	  background-color: #FFCCCB;
+	  box-shadow: 2px 2px #FF9999;
+	  transform: translateY(2px);
+	  transform: translateX(2px);
+    }
+    
+    .hidden {
+      display: none;
+    }
+
+    .date-notes {
+      margin-top: 20px;
+    }
+
+    .date-notes input, .date-notes textarea {
+      width: 80%;
+      padding: 8px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      margin-left: 10%
+    }
+
+    .log-button {
+      padding: 10px 20px;
+      background-color: #4f3100;
+      color: #ffffff;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      margin-left: 10%
+    }
+
+    .log-button:hover {
+      background-color: #7e4400;
+      transform: scale(1.02);
+    }
+    .log-button:active {
+    transform: scale(0.98);
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" style="display: inline-block; margin: 15px; text-decoration: none; color: #FFCCCB; font-size: 1rem;">
+      Back to Home
+    </a>
+    <a href="log.html" style="display: inline-block; margin: 15px; text-decoration: none; color: #FFCCCB; font-size: 1rem;">
+      view logged outfits
+    </a>
+    <h1>Outfit Log</h1>
+
+    <!-- Buttons for Tops, Bottoms, and Other categories -->
+    <button id="showTopsButton">Tops</button>
+    <button id="showBottomsButton">Bottoms</button>
+    <button id="showOtherButton">Other</button>
+
+    <!-- Subcategory buttons for Tops -->
+    <div id="topsButtons" class="hidden">
+      <button data-folder="tubeTops">Tube Tops</button>
+      <button data-folder="tankTops">Tank Tops</button>
+      <button data-folder="teeShirts">Tee Shirts</button>
+      <button data-folder="longSleeves">Long Sleeves</button>
+    </div>
+
+    <!-- Subcategory buttons for Bottoms -->
+    <div id="bottomsButtons" class="hidden">
+      <button data-folder="jeans">Jeans</button>
+      <button data-folder="skirts">Skirts</button>
+      <button data-folder="otherPants">Other Pants</button>
+      <button data-folder="shorts">Shorts</button>
+    </div>
+
+    <!-- Subcategory buttons for Other -->
+    <div id="otherButtons" class="hidden">
+      <button data-folder="jackets">Jackets</button>
+      <button data-folder="shoes">Shoes</button>
+    </div>
+
+    <!-- Displaying image thumbnails -->
+    <div class="image-gallery" id="imageGallery">
+      <!-- Thumbnails will be dynamically inserted here -->
+    </div>
+
+    <!-- Outfit Log -->
+    <div class="outfit-log" id="outfitLog">
+    <div style="width: 30%; float:left">
+         <h2>Outfit Log for Today</h2>
+      <ul id="logList">
+        <!-- Selected outfits will appear here -->
+      </ul>
+</div>
+
+<div style="width: 70%; float:right">
+       <div class="date-notes">
+      <input type="date" id="outfitDate" placeholder="Select Date">
+      <textarea id="outfitNotes" placeholder="Add Notes" rows="4" cols="50"></textarea>
+      <button class="log-button" id="logOutfitButton">Log Outfit</button>
+    </div>
+</div>
+
+    </div>
+
+
+
+  </div>
+
+  <script>
+    const imageGallery = document.getElementById('imageGallery');
+    const outfitLog = document.getElementById('outfitLog');
+    const logList = document.getElementById('logList');
+
+    // Buttons for Tops, Bottoms, and Other categories
+    const showTopsButton = document.getElementById('showTopsButton');
+    const showBottomsButton = document.getElementById('showBottomsButton');
+    const showOtherButton = document.getElementById('showOtherButton');
+
+    // Subcategory buttons
+    const topsButtons = document.getElementById('topsButtons');
+    const bottomsButtons = document.getElementById('bottomsButtons');
+    const otherButtons = document.getElementById('otherButtons');
+
+    // Date and Notes input
+    const outfitDate = document.getElementById('outfitDate');
+    const outfitNotes = document.getElementById('outfitNotes');
+    const logOutfitButton = document.getElementById('logOutfitButton');
+
+    // Folders for each category
+    const folders = {
+      tops: ['tubeTops', 'tankTops', 'teeShirts', 'longSleeves'],
+      bottoms: ['jeans', 'skirts', 'otherPants', 'shorts'],
+      other: ['jackets', 'shoes']
+    };
+
+    // Function to display the images as thumbnails
+    function displayThumbnails(folderNames) {
+      imageGallery.innerHTML = ''; // Clear the gallery
+
+      folderNames.forEach(folder => {
+        for (let i = 1; i <= 100; i++) {
+          const imgElement = document.createElement('img');
+          const imgSrc = `images/${folder}/${i}.png`;
+
+          // Create a new image to check if the photo exists
+          const img = new Image();
+          img.src = imgSrc;
+
+          img.onload = function() {
+            // If image is loaded successfully, add it to the gallery
+            imgElement.src = imgSrc;
+            imgElement.alt = `${folder} ${i}`;
+            imgElement.onclick = () => addToOutfitLog(imgSrc);
+
+            imageGallery.appendChild(imgElement);
+          };
+
+          img.onerror = function() {
+            // If the image can't be loaded, break the loop for this folder
+            console.log(`No ${i}.png found in ${folder}. Stopping further attempts.`);
+            return;  // Break the loop by returning early
+          };
+        }
+      });
+    }
+
+    // Function to add an item to the outfit log
+    function addToOutfitLog(imageSrc) {
+      const listItem = document.createElement('li');
+      const imageElement = document.createElement('img');
+      imageElement.src = imageSrc;
+      imageElement.style.width = '100px';
+      imageElement.style.height = '100px';
+
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.onclick = () => {
+        listItem.remove();
+      };
+
+      listItem.appendChild(imageElement);
+      listItem.appendChild(deleteButton);
+      logList.appendChild(listItem);
+    }
+
+    // Function to log the outfit with the selected date and notes
+function logOutfit() {
+  const date = outfitDate.value;
+  const notes = outfitNotes.value;
+  const items = Array.from(logList.children).map(item => item.querySelector('img').src);
+
+  if (date && items.length > 0) {
+    let outfits = JSON.parse(localStorage.getItem('outfits')) || [];
+    outfits.push({ date, notes, items });
+    localStorage.setItem('outfits', JSON.stringify(outfits));
+
+    alert('Outfit logged successfully!');
+    outfitDate.value = '';
+    outfitNotes.value = '';
+    logList.innerHTML = ''; // Clear UI
+    loadLoggedOutfits(); // Refresh log display
+  } else {
+    alert('Please select a date and add items to your outfit log!');
+  }
+}
+
+    // Event listeners for category buttons
+    showTopsButton.addEventListener('click', () => {
+      topsButtons.classList.toggle('hidden');
+      bottomsButtons.classList.add('hidden'); // Hide bottoms buttons if open
+      otherButtons.classList.add('hidden'); // Hide other buttons if open
+      imageGallery.innerHTML = ''; // Clear gallery when switching
+    });
+
+    showBottomsButton.addEventListener('click', () => {
+      bottomsButtons.classList.toggle('hidden');
+      topsButtons.classList.add('hidden'); // Hide tops buttons if open
+      otherButtons.classList.add('hidden'); // Hide other buttons if open
+      imageGallery.innerHTML = ''; // Clear gallery when switching
+    });
+
+    showOtherButton.addEventListener('click', () => {
+      otherButtons.classList.toggle('hidden');
+      topsButtons.classList.add('hidden'); // Hide tops buttons if open
+      bottomsButtons.classList.add('hidden'); // Hide bottoms buttons if open
+      imageGallery.innerHTML = ''; // Clear gallery when switching
+    });
+
+    // Event listener for subcategory buttons
+    topsButtons.addEventListener('click', (e) => {
+      if (e.target.dataset.folder) {
+        displayThumbnails([e.target.dataset.folder]);
+      }
+    });
+
+    bottomsButtons.addEventListener('click', (e) => {
+      if (e.target.dataset.folder) {
+        displayThumbnails([e.target.dataset.folder]);
+      }
+    });
+
+    otherButtons.addEventListener('click', (e) => {
+      if (e.target.dataset.folder) {
+        displayThumbnails([e.target.dataset.folder]);
+      }
+    });
+
+    // Event listener for Log Outfit button
+    logOutfitButton.addEventListener('click', logOutfit);
+
+  </script>
+</body>
+</html>

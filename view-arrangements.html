@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>outfits</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      font-size: 16px;
+      letter-spacing: 1.2px;
+      background-color: #362200;
+      color: #452c00;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin: 0;
+      padding: 0;
+    }
+    a:hover {
+	  color: #FFFFFF; /* Change text color to white */
+	  transform: scale(1.05); /* Add a slight zoom effect */
+	}
+	
+	a:active {
+	  transform: scale(0.95); /* Add a "pressed" effect */
+	}
+    .container {
+	  margin: 0 auto;
+	  margin-top: 10px;
+      text-align: center;
+      background-color: #F8E9D0;
+      padding: 10px;
+      border-radius: 30px;
+      width: 50%;
+      
+    }
+    
+    .container2 {
+      width: 100%;
+      margin-top: 10px; 
+      text-align: center;
+      padding: 20px;
+      background-color: #FFCCCB;
+      
+    }
+    h1 {
+      color: #362200;
+    }
+    
+    
+    .arrangement-list {
+      margin-bottom: 0px;
+      font-size: 12px;
+      display: flex;            /* Use flexbox to arrange items side by side */
+      flex-wrap: wrap;          /* Allow items to wrap onto a new line if needed */
+      justify-content: center;  /* Align items centrally */
+    }
+    .arrangement {
+      margin: 10px;
+      width: 300px;
+      padding: 5px;
+      color: #FFF;
+      border-radius: 10px;
+      background-color: #452c00;
+      display: inline-block;    /* Ensures arrangements are inline */
+    }
+    .canvas {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+      border: 1px solid #452c00;
+      border-radius: 10px;
+      overflow: auto;
+      background-color: #FFFFFF;
+    }
+    .draggable {
+      position: absolute;
+      max-width: 100px;
+      max-height: 100px;
+    }
+
+    .delete-button {
+      position: relative;
+      bottom: 35px;
+      right: 20%;
+      background-color: transparent;
+      color: white;
+      border: none;
+      padding: 3px 8px;
+      font-size: 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .delete-button:hover {
+      background-color: #CC0000;
+    }
+    .save-json-button {
+      position: relative;
+      bottom: 10px;
+      left: 20%;
+      down: 10%;
+      background-color: transparent;
+      color: white;
+      border: none;
+      padding: 3px 8px;
+      font-size: 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+.save-json-button:hover {
+  background-color: pink; /* Green color for hover effect */
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" style="
+      display: inline-block;
+      margin: 15px;
+      text-decoration: none;
+      color: #362200;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;">
+      Back to Home
+    </a>
+    <a href="outfits.html" style="
+      display: inline-block;
+      margin: 15px;
+      text-decoration: none;
+      color: #362200;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;">
+      outfit maker
+    </a>
+    <h1>Saved outfits</h1>
+    </div>
+    <div class="container2">
+    <div class="arrangement-list" id="arrangementList"></div>
+    <div>
+
+
+  <script>
+const database = JSON.parse(localStorage.getItem("photoArrangementsDB")) || {};
+const arrangementList = document.getElementById("arrangementList");
+function deleteArrangement(key) {
+  // Remove from local storage
+  delete database[key];
+  localStorage.setItem("photoArrangementsDB", JSON.stringify(database));
+
+  // Remove the element from the page
+  document.getElementById("arrangementList").innerHTML = "";
+  
+  // Re-render the remaining arrangements
+  Object.keys(database).forEach((key) => {
+    const arrangement = database[key];
+    if (Array.isArray(arrangement.arrangement)) {
+      const arrangementDiv = document.createElement("div");
+      arrangementDiv.classList.add("arrangement");
+
+      const title = document.createElement("h3");
+      title.textContent = key;
+      arrangementDiv.appendChild(title);
+
+      // Re-create delete button
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.classList.add("delete-button");
+      deleteButton.addEventListener("click", () => deleteArrangement(key));
+      arrangementDiv.appendChild(deleteButton);
+
+      // Re-create "Save to JSONBin" button
+      const saveJSONBinButton = document.createElement("button");
+      saveJSONBinButton.textContent = "Save to JSONBin";
+      saveJSONBinButton.classList.add("save-json-button");
+      saveJSONBinButton.addEventListener("click", () =>
+        saveArrangementToJSONBin(key, arrangement)
+      );
+      arrangementDiv.appendChild(saveJSONBinButton);
+
+      // Re-create canvas
+      const canvas = document.createElement("div");
+      canvas.classList.add("canvas");
+
+      arrangement.arrangement.forEach((photo) => {
+        const img = document.createElement("img");
+        img.src = photo.src;
+        img.style.left = photo.left;
+        img.style.top = photo.top;
+        img.classList.add("draggable");
+        canvas.appendChild(img);
+      });
+
+      arrangementDiv.appendChild(canvas);
+      arrangementList.appendChild(arrangementDiv);
+    }
+  });
+}
+
+// Loop through stored arrangements
+Object.keys(database).forEach((key) => {
+  const arrangement = database[key];
+
+  if (Array.isArray(arrangement.arrangement)) {
+    const arrangementDiv = document.createElement("div");
+    arrangementDiv.classList.add("arrangement");
+
+    const title = document.createElement("h3");
+    title.textContent = key;
+    arrangementDiv.appendChild(title);
+
+    // Create "Delete" button
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.classList.add("delete-button");
+    deleteButton.addEventListener("click", () => deleteArrangement(key));
+    arrangementDiv.appendChild(deleteButton);
+
+    // Create "Save to JSONBin" button
+    const saveJSONBinButton = document.createElement("button");
+    saveJSONBinButton.textContent = "Save to JSONBin";
+    saveJSONBinButton.classList.add("save-json-button");
+    saveJSONBinButton.addEventListener("click", () =>
+      saveArrangementToJSONBin(key, arrangement)
+    );
+    arrangementDiv.appendChild(saveJSONBinButton);
+
+    // Create canvas for images
+    const canvas = document.createElement("div");
+    canvas.classList.add("canvas");
+
+    arrangement.arrangement.forEach((photo) => {
+      const img = document.createElement("img");
+      img.src = photo.src;
+      img.style.left = photo.left;
+      img.style.top = photo.top;
+      img.classList.add("draggable");
+      canvas.appendChild(img);
+    });
+
+    arrangementDiv.appendChild(canvas);
+    arrangementList.appendChild(arrangementDiv);
+  } else {
+    console.error(`Arrangement for "${key}" is not an array:`, arrangement);
+  }
+});
+
+const JSONBIN_API_KEY =
+  "$2a$10$4IjfK0Y5ynpvKoctDkiCuuoFy236u9kzNg.bMlMoXxEPk.YUtddrq";
+let BIN_ID = localStorage.getItem("jsonBinId"); // Retrieve stored Bin ID
+
+const JSONBIN_ENDPOINT = BIN_ID
+  ? `https://api.jsonbin.io/v3/b/679e2be3ad19ca34f8f80cdd`
+  : "https://api.jsonbin.io/v3/b";
+
+// Function to save a specific arrangement to JSONBin **without nesting `record`**
+function saveArrangementToJSONBin(name, arrangement) {
+  fetch(JSONBIN_ENDPOINT, {
+    method: "GET",
+    headers: {
+      "X-Master-Key": JSONBIN_API_KEY,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      let updatedData = data.record || {}; // Extract only existing saved data
+
+      // Update only the necessary part, avoiding `record`
+      updatedData[name] = arrangement;
+
+      return fetch(JSONBIN_ENDPOINT, {
+        method: BIN_ID ? "PUT" : "POST", // Use PUT if BIN_ID exists, else POST
+        headers: {
+          "Content-Type": "application/json",
+          "X-Master-Key": JSONBIN_API_KEY,
+        },
+        body: JSON.stringify(updatedData), // Save as a plain object, avoiding `record`
+      });
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Data successfully saved to JSONBin:", data);
+
+      if (!BIN_ID) {
+        localStorage.setItem("jsonBinId", data.metadata.id); // Store bin ID
+      }
+
+      alert("Arrangement saved successfully!");
+    })
+    .catch((error) => {
+      console.error("Error saving to JSONBin:", error);
+      alert("Failed to save. Please check the console for errors.");
+    });
+}
+
+</script>
+
+</body>
+</html>
