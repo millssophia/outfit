@@ -4,72 +4,110 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Outfit Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&family=Press+Start+2P&family=Sloop+Script+Pro&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Georgia, serif;
-      font-size: 10px;
-      font-weight: 600;
-      background-color: #362200;
-      color: #452c00;
-      text-transform: uppercase;
       margin: 0;
-      padding: 0;
+      font-family: 'Press Start 2P', sans-serif;
+      background-color: #f4c6d1;
+      color: black;
+      text-align: center;
+      display: flex;
+      flex-direction: column; /* Stack elements vertically */
+      align-items: center;
+      min-height: 100vh;
     }
-    
+
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80%;
+      max-width: 800px;
+      margin: 20px auto 10px;
+    }
+
+    .container {
+      position: relative;
+      background-color: #fff; /* Changed to white for contrast */
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 800px;
+      margin: 10px auto; /* Center horizontally */
+      margin: 10px auto;
+    }
+
     h1 {
-      color: #FF6F61;
+      font-size: 3rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 3px 3px black;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+
+    h1.script {
+      font-family: 'Sloop Script Pro', cursive;
+      font-size: 5rem;
+      font-weight: 700;
+      color: black;
     }
 
     .analytics-container {
-      background-color: #FFCCCB;
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
-      margin: 0 auto;
-      width: 95%;
-      height: 80%; 
-      Fixed height for scrollable content      
-      margin: 0 auto;
-      margin-top: 10px;
-      overflow-y: auto; Enable vertical scrolling
+    margin: 10px auto;
+      background-color: transparent; /* Changed to white for contrast */
+      padding: 5px;
+      border-radius: 0px;
+      margin: 20px auto;
+      width: 80%;
+      max-width: 800px;
+      height: 500px; /* Ensure there's some height even with no content */
+      overflow-y: auto; /* Enable vertical scrolling if content overflows */
     }
 
-
-
-    
+	.search-box{
+	background-color: transparent;
+	align-items: left;
+	width: 100%;
+	height: 7px;
+	padding: 5px;
+	}
 
     .search-container {
-      display: flex;
-      justify-content: center;
-      margin-left: 10px;
+      width: 100%;
     }
-    
+
     #searchInput {
-      width: 10%;
+      width: 275px;
       max-width: 400px;
-      padding: 7px 11px;
+      padding: 4px 6px;
       font-size: 0.5rem;
-      border: 2px solid #7e4400;
-      border-radius: 0px;
+      border: 2px solid white;
+      border-radius: 5px;
       outline: none;
       transition: all 0.3s ease;
     }
 
     #searchInput:focus {
-      border-color: #FF6F61;
+      border-color: black;
     }
 
     .outfit-grid {
+    margin: 10px auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive columns */
+      gap: 15px;
       justify-items: center;
-      padding: 10px ;
-      
+      padding: 15px;
+      margin: 5px;
     }
 
+
     .log-entry {
-      background-color: #FFF;
+      background-color: white;
       border-radius: 10px;
       padding: 10px;
       width: 200px;
@@ -79,7 +117,9 @@
       justify-content: center;
       align-items: center;
 	  overflow:auto;
+	  border: dashed black;
     }
+
 
     .log-entry img {
       margin: 0;
@@ -91,73 +131,96 @@
     }
 
     .log-entry-details {
-      font-size: 10px;
-      color: #362200;
-      text-align: center;
-      overflow-wrap: break-word;
+      font-size: 0.6rem;
+      color: black;
+      margin-bottom: 8px;
+      font-family: Impact;
     }
 
     .log-entry-date {
-      font-size: 10px;
-      color: #362200;
-      overflow-wrap: normal;
+      font-weight: bold;
     }
 
     .log-entry-notes {
-      margin-top: 2px;
-      text-transform: lowercase;
-      font-weight: 300;
+      color: #777;
     }
 
     button {
-      background-color: #4f3100;
-      text-transform: uppercase;
-      font-weight: 200;
-      border-radius: 5px;
-      border: 1px solid #362200;
+      background-color: black;
+      color: white;
+      font-size: 0.8rem;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      margin: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      margin-left: 45%;
+    }
+
+    button:hover {
+      background-color: white;
+      color: black;
+    }
+
+    .stylebutton {
       display: inline-block;
       cursor: pointer;
-      color: #ffffff;
-      font-family: Impact;
-      font-size: 10px;
-      padding: 6px 3px;
+      text-transform: capitalize;
+      color: white;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 12px 40px;
       text-decoration: none;
-      margin: 10px;
+      background-color: black;
+      text-shadow: 2px 2px #f4c6d1;
+      box-shadow: 4px 4px 0px 0px #f4c6d1;
+      border: 2px solid black;
+      border-radius: 0px;
+      transition: all 0.3s ease-in-out;
+      padding: 8px 16px;
+      margin: 8px;
+    }
+
+    .stylebutton:hover {
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+      transform: scale(1.05);
+    }
+
+    .stylebutton:active {
+      background-color: #f4c6d1;
+      color: black;
+      box-shadow: 2px 2px #e09bae;
+      transform: translateY(2px) translateX(2px);
     }
     
-    button:hover {
-      background-color: #7e4400;
-      transform: scale(1.02);
-    }
     
-    button:active {
-      padding: 4px 2px;
-    }
-    a:hover {
-	  color: #FFFFFF; /* Change text color to white */
-	  transform: scale(1.02); /* Add a slight zoom effect */
-	}
-	
-	a:active {
-	  transform: scale(0.95); /* Add a "pressed" effect */
-	}
+
   </style>
 </head>
 <body>
-  <div class="container"> 
-    <a href="index.html" style="display: inline-block; margin: 15px;margin-top: 20px; text-decoration: none; color: #FFCCCB; font-size: 1rem; transition: background-color 0.3s ease;">Back to Home</a>
-    
-	<input type="text" id="searchInput" placeholder="lookup" onkeyup="searchOutfits()">
-	<button onclick=location.href="outfit-log.html">add new outfit</button>
-	  <div style="float:right;">
-    <button onclick="clearAnalytics()">delete all</button></div>
+  <div class="header">
+        <h1>LOGGED OUTFITS</h1>
+        
+        <div class="header-links">
+            <a href="index.html" class="stylebutton">Back to Home <33</a>
+            <a href="outfit-log.html" class="stylebutton">Add New Outfit :)</a> 
+            <input type="text" id="searchInput" placeholder="lookup" onkeyup="searchOutfits()"> 
 
-  </div>
+        </div>
+    </div>
 
   <div class="analytics-container">
     <div id="outfitLogs" class="outfit-grid"></div>
-    <div id="outfitLogs" class="outfit-grid"></div>
   </div>
+  <button onclick="clearAnalytics()">Delete All</button>
 
   <script>
     // Function to retrieve the outfit logs from localStorage
@@ -176,12 +239,12 @@
       logs.forEach(log => {
         const logEntry = document.createElement('div');
         logEntry.classList.add('log-entry');
-        
+
         // Item Images
         const itemImages = log.items.map(item => {
           return `<img src="${item}" alt="Item Image">`;
         }).join('');
-        
+
         // Log Entry Details
         const logNotes = document.createElement('div');
         logNotes.classList.add('log-entry-details');
@@ -198,11 +261,9 @@
         logEntry.innerHTML = itemImages;
         logEntry.prepend(logDate);
         logEntry.append(logNotes);
-        
+
         outfitLogsContainer.appendChild(logEntry);
-
       });
-
     }
 
     // Search through outfit logs based on keyword in description
@@ -228,16 +289,7 @@
     window.onload = () => {
       renderOutfitLogs(getOutfitLogs());
     };
-    
 
-    
-// document.addEventListener("DOMContentLoaded", function () {
-//   setTimeout(() => {
-//     document.querySelectorAll('.log-entry').forEach(entry => {
-//       entry.scrollTop = entry.scrollHeight;
-//     });
-//   }, 100); // Small delay to ensure content is loaded
-// });
   </script>
 
 </body>

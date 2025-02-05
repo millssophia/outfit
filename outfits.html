@@ -4,42 +4,85 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>outfit maker</title>
-  <style>
-    body {
-      font-family: Georgia, serif;
-      font-size: 16px;
-      letter-spacing: 1.2px;
-      background-color: #FFCCCB;
-      color: #452c00;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    .container1 {
-	  margin: 0 auto;
-	  margin-top: 10px;
-      text-align: center;
-      background-color: #362200;
-      padding: 10px;
-      border-radius: 30px;
-      width: 900px;
-      min-height: 90%;
-      
-    }
-    .container {
-	  margin: 0 auto;
-	  margin-top: 10px;
-      text-align: center;
-      background-color: #F8E9D0;
-      padding: 30px;
-      border-radius: 30px;
-      width: 90%;
-      
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&family=Press+Start+2P&family=Sloop+Script+Pro&display=swap" rel="stylesheet">
+    <style>
 
-    h1 {
-      margin-bottom: 20px;
-      color: #FFCCCB;
-    }
+        body {
+            margin: 0;
+            font-family: 'Press Start 2P', sans-serif;
+            background-color: #f4c6d1;
+            color: black;
+            text-align: center;
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center;
+            min-height: 100vh;
+        }
+                .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto 10px;
+        }
+        .container1 {
+            position: relative;
+            background-color: #f4c6d1;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            margin: 10px auto; /* Center horizontally */
+        }
+        .container {
+            position: relative;
+            background-color: #f4c6d1;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            margin: 10px auto; /* Center horizontally */
+        }
+        button {
+            background-color: black;
+            color: white;
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 20px;
+            margin: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            margin: 10px;
+        }
+
+        button:hover {
+              background-color: white;
+            color: black;
+    
+        }
+
+        h1 {
+        
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 3px 3px black;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+        h1.script {
+            font-family: 'Sloop Script Pro', cursive;
+            font-size: 5rem;
+            font-weight: 700;
+            color: black;
+        }
     
     img {
     transform: scale(0.5);
@@ -60,14 +103,7 @@
     }
 
 
-	a:hover {
-	  color: #FFFFFF; /* Change text color to white */
-	  transform: scale(1.05); /* Add a slight zoom effect */
-	}
-	
-	a:active {
-	  transform: scale(0.95); /* Add a "pressed" effect */
-	}
+
     .image-gallery {
       display: flex;
       flex-wrap: wrap;
@@ -129,7 +165,7 @@
     }
 
     #canvas p {
-      color: #FF9999;
+      color: black;
       font-size: 1.2em;
     }
 
@@ -152,102 +188,143 @@
       display: none;
     }
 
-    button {
-      background-color: #4f3100;
-      text-transform: uppercase;
-      border-radius: 5px;
-      border: 1px solid #362200;
-      display: inline-block;
-      cursor: pointer;
-      color: #ffffff;
-      font-family: Impact;
-      font-size: 10px;
-      padding: 6px 3px;
-      text-decoration: none;
-      margin: 10px
-    }
-    
-    button:hover {
-    background-color: #7e4400;
-    }
-    
-    button:active {
-    padding: 4px 2px;
-    }
+        .subfolder-button {
+            background-color: black;
+            color: white;
+            font-size: 0.5rem;
+            padding: 3px 6px;
+            border: none;
+            border-radius: 20px;
+            margin: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .subfolder-button:hover {
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+}
 
     #showTopsButton, #showBottomsButton, #showOtherButton {
-      display: inline-block;
-      cursor: pointer;
-      text-transform: capitalize;
-      color: #ffffff;
-      font-family: Georgia;
-      font-size: 17px;
-      font-weight: bold;
-      padding: 10px 37px;
-      text-decoration: none;
-      text-shadow: 3px 3px 0px #528ecc;
-      margin: 10px;
-      margin-bottom: 10px;
-      background-color: #FFCCCB;
-      text-shadow: 3px 3px 0px #FF9999;
-      box-shadow: 4px 4px 0px 0px #FF9999;
-      border: 1px solid #FF9999;
-      border-radius: 0px;
-    }
+    display: inline-block;
+    cursor: pointer;
+    text-transform: capitalize;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 12px 40px;
+    text-decoration: none;
+    background-color: black;
+    text-shadow: 2px 2px #f4c6d1;
+    box-shadow: 4px 4px 0px 0px #f4c6d1;
+    border: 2px solid black;
+    border-radius: 0px;
+    transition: all 0.3s ease-in-out;
+    padding: 8px 16px;
+}
+
     
     #showTopsButton:hover, #showBottomsButton:hover, #showOtherButton:hover {
-    	border: none;
-    }
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+}
     
     #showTopsButton:active, #showBottomsButton:active, #showOtherButton:active {
-	  background-color: #FFCCCB;
-	  box-shadow: 2px 2px #FF9999;
-	  transform: translateY(2px);
-	  transform: translateX(2px);
+    background-color: #f4c6d1;
+    color: black;
+    box-shadow: 2px 2px #e09bae;
+    transform: translateY(2px) translateX(2px);
+}
+    .stylebutton {
+    display: inline-block;
+    cursor: pointer;
+    text-transform: capitalize;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 12px 40px;
+    text-decoration: none;
+    background-color: black;
+    text-shadow: 2px 2px #f4c6d1;
+    box-shadow: 4px 4px 0px 0px #f4c6d1;
+    border: 2px solid black;
+    border-radius: 0px;
+    transition: all 0.3s ease-in-out;
+    padding: 8px 16px;
+    margin: 8px;
+}
+    .stylebutton:hover {
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+      transform: scale(1.05);
     }
-#zoomSlider {
-  -webkit-appearance: none;
-  width: 20%;
-  height: 10px;
-  background: #FFCCCB;
-  outline: none;
-  border-radius: 6px;
-  transition: 0.2s;
-  cursor: pointer;
-  border: 2px solid #FF9999;
+    
+    .stylebutton:active {
+    background-color: #f4c6d1;
+    color: black;
+    box-shadow: 2px 2px #e09bae;
+    transform: translateY(2px) translateX(2px);
 }
+        #zoomSlider {
+            -webkit-appearance: none;
+            width: 20%;
+            height: 10px;
+            background: white;
+            outline: none;
+            border-radius: 6px;
+            transition: 0.2s;
+            cursor: pointer;
+            border: 2px solid black;
+        }
 
-
-
-#zoomSlider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  background: #FFCCCB;
-  border: 2px solid #FF9999;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.2s;
-}
+        #zoomSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border: 2px solid black;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+        }
 
 #zoomSlider::-webkit-slider-thumb:hover {
-  background: #FF9999;
+  background: black;
 }
 
-#zoomSlider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  background: #fff;
-  border: 2px solid #FF3333;
-  border-radius: 50%;
-  cursor: pointer;
+
+
+
+ .database-select {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 10px
+    color: black;
+    background-color: transparent;
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    margin: 5px;
+    cursor: pointer;
+    text-transform: capitalize;
+    appearance: none; /* Removes default arrow styling */
+    border: none;
 }
 
-#zoomSlider::-moz-range-thumb:hover {
-  background: #FFCCCC;
-  border-color: #FF0000;
-}
+.database-select:hover {
+            background-color: black;
+            color: white;
 
+        }
 .controls {
   display: flex;
   align-items: center;
@@ -259,26 +336,16 @@
   </style>
 </head>
 <body>
+   <div class="header">
+        <h1>OUTFIT MAKER</h1>
+        <div class="header-links">
+            <a href="index.html" class="stylebutton">Back to Home</a>
+            <a href="view-arrangements.html" class="stylebutton">Saved Outfits</a>
+        </div>
+    </div>
   <div class=container1>
-    <a href="index.html" style="
-      display: inline-block;
-      margin: 15px;
-      text-decoration: none;
-      color: #FFCCCB;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;">
-      Back to Home
-    </a>
-    <a href="view-arrangements.html" style="
-      display: inline-block;
-      margin: 15px;
-      text-decoration: none;
-      color: #FFCCCB;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;">
-      view saved outfits
-    </a>
-    <h1>outfit drag-and-drop</h1>
+
+
 
     <!-- Buttons for Tops, Bottoms, and Other categories -->
     <button id="showTopsButton">Tops</button>
@@ -317,7 +384,7 @@
 <div class="controls">
   <label for="zoomSlider">zoom</label>
   <input type="range" id="zoomSlider" min="50" max="200" value="50">
-  <button id="togglePreviewButton">preview box</button>
+  <button id="togglePreviewButton", class= "stylebutton"><3</button>
 </div>
 <div id="canvas" class="canvas">
 <div class="preview-container" style="display: none;">
@@ -429,10 +496,10 @@ const previewContainer = document.querySelector('.preview-container');
 togglePreviewButton.addEventListener('click', () => {
   if (previewContainer.style.display === 'none') {
     previewContainer.style.display = 'block';
-    togglePreviewButton.textContent = "Hide Preview";
+    togglePreviewButton.textContent = ":)";
   } else {
     previewContainer.style.display = 'none';
-    togglePreviewButton.textContent = "Show Preview";
+    togglePreviewButton.textContent = "<3";
   }
 });
 
@@ -556,16 +623,19 @@ togglePreviewButton.addEventListener('click', () => {
     
   const saveDatabaseButton = document.createElement('button');
   saveDatabaseButton.textContent = "Save Outfit";
+  saveDatabaseButton.classList.add('button');
   saveDatabaseButton.style.margin = "10px";
   document.querySelector('.container').appendChild(saveDatabaseButton);
 
   const loadDatabaseButton = document.createElement('button');
   loadDatabaseButton.textContent = "Load Outfit";
+  loadDatabaseButton.classList.add('button');
   loadDatabaseButton.style.margin = "10px";
   document.querySelector('.container').appendChild(loadDatabaseButton);
 
   const databaseSelect = document.createElement('select');
   databaseSelect.style.margin = "10px";
+  databaseSelect.classList.add('database-select');
   document.querySelector('.container').appendChild(databaseSelect);
 
   // Initialize the database in localStorage

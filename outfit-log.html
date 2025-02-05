@@ -1,40 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Outfit Log</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&family=Press+Start+2P&family=Sloop+Script+Pro&display=swap"
+    rel="stylesheet">
   <style>
-    body {
-      font-family: Georgia, serif;
-      font-size: 16px;
-      letter-spacing: 1.2px;
-      background-color: #362200;
-      color: #452c00;
-      font-weight: 700;
-      text-transform: uppercase;
+        body {
+            margin: 0;
+            font-family: 'Press Start 2P', sans-serif;
+            background-color: #f4c6d1;
+            color: black;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            /* Stack elements vertically */
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto 10px;
+        }
+
+        .container {
+            position: relative;
+            background-color: #f4c6d1;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            margin: 10px auto;
+            /* Center horizontally */
+        }
+
+    button {
+      background-color: black;
+      color: white;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 20px;
+      margin: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      margin: 10px;
     }
 
-    .container {
-      margin: 0 auto;
-      text-align: center;
-      background-color: #362200;
-      color: #452c00;
-      padding: 30px;
-      border-radius: 30px;
-      width: 90%;
+    button:hover {
+      background-color: white;
+      color: black;
+
     }
 
     h1 {
-      margin-bottom: 20px;
-      color: #FFCCCB;
+
+      font-size: 3rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 3px 3px black;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
     }
 
+    h1.script {
+      font-family: 'Sloop Script Pro', cursive;
+      font-size: 5rem;
+      font-weight: 700;
+      color: black;
+    }
+    h2 {
+	text-align: center;
+    }
     .image-gallery {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     .image-gallery img {
@@ -45,23 +100,22 @@
       cursor: pointer;
       border-radius: 5px;
       transition: transform 0.3s ease;
+      transform: scale(0.5);
     }
 
     .image-gallery img:hover {
-      transform: scale(1.1);
+      transform: scale(0.7);
     }
 
     .outfit-log {
-      margin-top: 50px;
-      margin-bottom: 100px;
-      background-color: #FFCCCB;
+      margin-top: 10px;
+      height: 300px;
       padding: 15px;
       border-radius: 10px;
       text-align: left;
       max-height: 300px;
       overflow-y: auto;
       font-size: 14px;
-      font-family: Georgia, sans-serif;
     }
 
     .outfit-log ul {
@@ -99,44 +153,93 @@
     }
     
 
-	a:hover {
-	  transform: scale(1.05); /* Add a slight zoom effect */
-	}
-	
-	a:active {
-	  transform: scale(0.95); /* Add a "pressed" effect */
-	}
+
     #showTopsButton, #showBottomsButton, #showOtherButton {
       display: inline-block;
       cursor: pointer;
       text-transform: capitalize;
-      color: #ffffff;
-      font-family: Georgia;
-      font-size: 17px;
+      color: white;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
       font-weight: bold;
-      padding: 10px 37px;
+      padding: 8px 16px;
       text-decoration: none;
-      text-shadow: 3px 3px 0px #528ecc;
-      margin: 10px;
-      margin-bottom: 10px;
-      background-color: #FFCCCB;
-      text-shadow: 3px 3px 0px #FF9999;
-      box-shadow: 4px 4px 0px 0px #FF9999;
-      border: 1px solid #FF9999;
+      background-color: black;
+      text-shadow: 2px 2px #f4c6d1;
+      box-shadow: 4px 4px 0px 0px #f4c6d1;
+      border: 2px solid black;
       border-radius: 0px;
+      transition: all 0.3s ease-in-out;
+      margin: 8px;
     }
     
     #showTopsButton:hover, #showBottomsButton:hover, #showOtherButton:hover {
-    	border: none;
+      background-color: white;
+      color: black;
+      border: 2px solid black;
     }
     
     #showTopsButton:active, #showBottomsButton:active, #showOtherButton:active {
-	  background-color: #FFCCCB;
-	  box-shadow: 2px 2px #FF9999;
-	  transform: translateY(2px);
-	  transform: translateX(2px);
+      background-color: #f4c6d1;
+      color: black;
+      box-shadow: 2px 2px #e09bae;
+      transform: translateY(2px) translateX(2px);
     }
-    
+    button {
+      background-color: black;
+      color: white;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 20px;
+      margin: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      margin: 10px;
+      text-transform: capitalize;
+    }
+
+    button:hover {
+      background-color: white;
+      color: black;
+      
+
+    }
+    .stylebutton {
+      display: inline-block;
+      cursor: pointer;
+      text-transform: capitalize;
+      color: white;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 8px 16px;
+      text-decoration: none;
+      background-color: black;
+      text-shadow: 2px 2px #f4c6d1;
+      box-shadow: 4px 4px 0px 0px #f4c6d1;
+      border: 2px solid black;
+      border-radius: 0px;
+      transition: all 0.3s ease-in-out;
+      margin: 8px;
+    }
+
+    .stylebutton:hover {
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+      transform: scale(1.05);
+    }
+
+    .stylebutton:active {
+      background-color: #f4c6d1;
+      color: black;
+      box-shadow: 2px 2px #e09bae;
+      transform: translateY(2px) translateX(2px);
+    }
     .hidden {
       display: none;
     }
@@ -154,36 +257,59 @@
     }
 
     .log-button {
-      padding: 10px 20px;
-      background-color: #4f3100;
-      color: #ffffff;
-      font-weight: bold;
-      cursor: pointer;
+      background-color: black;
+      color: white;
+      font-size: 0.8rem;
+      padding: 6px 12px;
       border: none;
-      border-radius: 5px;
+      border-radius: 20px;
+      margin: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      margin: 10px;
+      text-transform: capitalize;
       margin-left: 10%
     }
 
     .log-button:hover {
-      background-color: #7e4400;
-      transform: scale(1.02);
+      background-color: white;
+      color: black;
     }
     .log-button:active {
     transform: scale(0.98);
     }
+.date-notes input{
+  width: 80%;
+  padding: 8px;
+  margin-bottom: 10px;
+  font-size: 9px;
+  margin-left: 10%;
+font-family: 'Press Start 2P', cursive;
+font-style: bold;
+color: black;
 
+}
+
+.date-notes textarea {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      }
 
   </style>
 </head>
 <body>
+  <div class="header">
+    <h1>OUTFIT LOG</h1>
+    <div class="header-links">
+      <a href="index.html" class="stylebutton"><3 Back to Home <3</a>
+      <a href="log.html" class="stylebutton">View Logged Outfits</a>
+    </div>
+  </div>
   <div class="container">
-    <a href="index.html" style="display: inline-block; margin: 15px; text-decoration: none; color: #FFCCCB; font-size: 1rem;">
-      Back to Home
-    </a>
-    <a href="log.html" style="display: inline-block; margin: 15px; text-decoration: none; color: #FFCCCB; font-size: 1rem;">
-      view logged outfits
-    </a>
-    <h1>Outfit Log</h1>
+
 
     <!-- Buttons for Tops, Bottoms, and Other categories -->
     <button id="showTopsButton">Tops</button>
@@ -219,14 +345,14 @@
 
     <!-- Outfit Log -->
     <div class="outfit-log" id="outfitLog">
-    <div style="width: 30%; float:left">
-         <h2>Outfit Log for Today</h2>
+    <div style="width: 40%; float:left">
+         <h2>Outfit for Today:</h2>
       <ul id="logList">
         <!-- Selected outfits will appear here -->
       </ul>
 </div>
 
-<div style="width: 70%; float:right">
+<div style="width: 60%; float:right">
        <div class="date-notes">
       <input type="date" id="outfitDate" placeholder="Select Date">
       <textarea id="outfitNotes" placeholder="Add Notes" rows="4" cols="50"></textarea>

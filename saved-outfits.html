@@ -3,49 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>saved outfits</title>
+  <title>Saved Outfits</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&family=Press+Start+2P&family=Sloop+Script+Pro&display=swap"
+    rel="stylesheet">
   <style>
-      body {
-      font-family: Georgia, serif;
-      font-size: 16px;
-      letter-spacing: 1.2px;
-      background-color: #362200;
-      color: #452c00;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin: 0;
-      padding: 0;
-    }
-    a:hover {
-	  color: #FFFFFF; /* Change text color to white */
-	  transform: scale(1.05); /* Add a slight zoom effect */
-	}
-	
-	a:active {
-	  transform: scale(0.95); /* Add a "pressed" effect */
-	}
-    .container {
-	  margin: 0 auto;
-	  margin-top: 10px;
-      text-align: center;
-      background-color: #FFCCCB;
-      padding: 10px;
-      border-radius: 30px;
-      width: 50%;
-      
-    }
-    
+        body {
+            margin: 0;
+            font-family: 'Press Start 2P', sans-serif;
+            background-color: #f4c6d1;
+            color: black;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            /* Stack elements vertically */
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto 10px;
+        }
+
+        .container {
+            position: relative;
+            background-color: #f4c6d1;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            margin: 10px auto;
+            /* Center horizontally */
+        }
+        button {
+            background-color: black;
+            color: white;
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 20px;
+            margin: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: white;
+            color: black;
+            
+
+        }
+        .stylebutton {
+            display: inline-block;
+            cursor: pointer;
+            text-transform: capitalize;
+            color: white;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 12px 40px;
+            text-decoration: none;
+            background-color: black;
+            text-shadow: 2px 2px #f4c6d1;
+            box-shadow: 4px 4px 0px 0px #f4c6d1;
+            border: 2px solid black;
+            border-radius: 0px;
+            transition: all 0.3s ease-in-out;
+            padding: 8px 16px;
+            margin: 8px;
+        }
+
+        .stylebutton:hover {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            transform: scale(1.05);
+        }
+
+        .stylebutton:active {
+            background-color: #f4c6d1;
+            color: black;
+            box-shadow: 2px 2px #e09bae;
+            transform: translateY(2px) translateX(2px);
+        }
+            h1 {
+
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 3px 3px black;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        h1.script {
+            font-family: 'Sloop Script Pro', cursive;
+            font-size: 5rem;
+            font-weight: 700;
+            color: black;
+        }
     .container2 {
       width: 100%;
       margin-top: 10px; 
       text-align: center;
       padding: 20px;
-      background-color: #362200;
+      background-color: #f4c6d1;
       
     }
-    h1 {
-      color: #362200;
-    }
+ 
     
     
     .arrangement-list {
@@ -61,7 +138,7 @@
       padding: 5px;
       color: #FFF;
       border-radius: 10px;
-      background-color: #FFCCCB;
+      background-color: black;
       display: inline-block;    /* Ensures arrangements are inline */
     }
     .canvas {
@@ -121,17 +198,12 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <a href="index.html" style="
-      display: inline-block;
-      margin: 15px;
-      text-decoration: none;
-      color: #362200;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;">
-      Back to Home
-    </a>
-    <h1>Saved outfits</h1>
+   <div class="header">
+        <h1>SAVED OUTFITS</h1>
+        <div class="header-links">
+            <a href="index.html" class="stylebutton">Back to Home :)</a>
+            <a href="outfits.html" class="stylebutton"> Outfit Maker <33 </a>
+        </div>
     </div>
     <div class="container2">
     <div class="arrangement-list" id="arrangementList"></div>
